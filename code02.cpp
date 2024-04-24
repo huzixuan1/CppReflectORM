@@ -34,6 +34,27 @@ std::vector<std::pair<std::string, std::string>> getStructFieldsInfo(const T& st
     return fieldsInfo;
 }
 
+// insert into tableName (id,weight,salary,userName) values (1,50,230,,tom);
+template<typename T>
+std::string generateSQL(const T& struct_t, std::string tableName) {
+    std::vector<std::pair<std::string, std::string>> fields = getStructFieldsInfo(struct_t);
+    std::string sql = "insert into " + tableName + " (";
+    std::string values = "values (";
+
+    for (const auto& field : fields) {
+        sql += field.first + ",";
+        values += "'" + field.second + "',";
+    }
+
+    sql.pop_back();     // delete the last ,
+    values.pop_back();
+
+    sql += ") " + values + ");";
+
+    return sql;
+}
+
+
 struct insertData
 {
     /* data */
@@ -53,11 +74,12 @@ int main()
     obj.salary = 2300;
     obj.userName = "tom";
 
-    auto fields = getStructFieldsInfo(obj);
-    for(const auto& field:fields)
-    {
-        std::cout << "Name: " << field.first << ", Value: " << field.second << std::endl;
-    }
+    // auto fields = getStructFieldsInfo(obj);
+    // for(const auto& field:fields)
+    // {
+    //     std::cout << "Name: " << field.first << ", Value: " << field.second << std::endl;
+    // }
 
+    std::cout<<generateSQL(obj,"userName")<<std::endl;
     return 0;
 }
