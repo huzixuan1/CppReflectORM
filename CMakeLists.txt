@@ -3,7 +3,8 @@ project(dbORM)
 
 set(CMAKE_CXX_STANDARD 20)
 
-include_directories(/home/huzixuan/workSpaces/CppReflectDB)
+# include_directories(/home/huzixuan/workSpaces/CppReflectDB)
+include_directories(${CMAKE_SOURCE_DIR}/../CppReflectDB)
 
 # add_executable(dbORM dbORM/sqlHelper.cpp)
 # add_executable(dbORM dbORM/insertData.cpp)
