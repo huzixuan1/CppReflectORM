@@ -1,6 +1,6 @@
 #include <iostream>
-#include "../include/createTable.hpp"
 #include "../include/utility.hpp"
+#include "../include/createTable.hpp"
 
 using namespace std;
 
@@ -36,8 +36,7 @@ void MySQLTableBuilder::reset() {
 }
 
 // Implementations of TableDirector methods
-// TableDirector::TableDirector(std::unique_ptr<TableBuilder> builder) : builder(std::move(builder)) {}
-TableDirector::TableDirector(TableBuilder* builder) : builder(std::move(builder)) {}
+TableDirector::TableDirector(std::shared_ptr<TableBuilder> builder) : builder(std::move(builder)) {}
 
 void TableDirector::construct(const std::string& tableName,
                               const std::vector<std::pair<std::string, std::string>>& columns,
@@ -65,25 +64,14 @@ struct response
 
 int main()
 {
-    // std::unique_ptr<TableBuilder> builder;
-    // TableDirector director(builder);
-
-    TableBuilder* builder = new MySQLTableBuilder();
+    std::shared_ptr<TableBuilder> builder = std::make_shared<MySQLTableBuilder>();
     TableDirector director(builder);
-
-    // auto builder = make_unique<MySQLTableBuilder>();
-    // TableDirector director(move(builder));
 
     response resp;
     std::vector<std::pair<std::string, std::string>> fields = utility::getStructFieldsInfo(resp);
-    for(const auto& field:fields){
-        std::cout<<"fileName:"<<field.first<<" ,SQL type:"<<field.second<<std::endl;
-    }
 
     director.construct("response", fields,"id");
     std::cout << builder->build() << std::endl;
-
-    delete builder;
 
     return 0;
 }

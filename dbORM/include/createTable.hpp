@@ -40,12 +40,10 @@ public:
 // Director class for constructing SQL tables using a TableBuilder
 class TableDirector {
 private:
-    TableBuilder* builder;
-    // std::unique_ptr<TableBuilder> builder;
+    std::shared_ptr<TableBuilder> builder;
 
 public:
-    TableDirector(TableBuilder* builder);
-    // TableDirector(std::unique_ptr<TableBuilder> builder);
+    TableDirector(std::shared_ptr<TableBuilder> builder);
     void construct(const std::string& tableName,
                    const std::vector<std::pair<std::string, std::string>>& columns,
                    const std::string& primaryKey = "",
@@ -55,18 +53,6 @@ public:
 // Function template to get field information from a struct
 template<typename T>
 std::vector<std::pair<std::string, std::string>> getStructFieldsInfo(const T& struct_t);
-
-// struct testdb {
-//     int testId;
-// };
-
-// struct response {
-//     int id;
-//     double salary;
-//     std::string words;
-//     // testdb abc;
-// };
-
 
 
 #endif  // TABLE_BUILDER_HPP
