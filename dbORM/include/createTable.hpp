@@ -47,7 +47,8 @@ public:
     void construct(const std::string& tableName,
                    const std::vector<std::pair<std::string, std::string>>& columns,
                    const std::string& primaryKey = "",
-                   const std::string& foreignKey = "");
+                   const std::string& foreignKey = "",
+                   const std::string& foreignKeyColumn = "");
 };
 
 // Function template to get field information from a struct

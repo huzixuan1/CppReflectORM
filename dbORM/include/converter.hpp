@@ -39,7 +39,8 @@ namespace converter{
     struct TypeConverter<std::string>
     {
         static const std::string& converter(){
-            static const std::string res = "TEXT";
+            // static const std::string res = "TEXT";
+            static const std::string res = "VARCHAR(255)";
             return res;
         }
     };
