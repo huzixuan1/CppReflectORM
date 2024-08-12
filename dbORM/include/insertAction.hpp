@@ -55,22 +55,22 @@ std::string generateSQL(const T& struct_t, std::string tableName) {
 }
 
 
-struct insertData
-{
-    /* data */
-    int id;
-    float weight;
-    double salary;
-    std::string userName;
-};
+// struct insertData
+// {
+//     /* data */
+//     int id;
+//     float weight;
+//     double salary;
+//     std::string userName;
+// };
 
 
-// insert into userName (id,weight,salary,userName) values ('1','50.000000','2300.000000','tom');
+// // insert into userName (id,weight,salary,userName) values ('1','50.000000','2300.000000','tom');
 
-int main()
-{
-    insertData obj{1,49,230,"tom"};
+// int main()
+// {
+//     insertData obj{1,49,230,"tom"};
 
-    std::cout<<generateSQL(obj,"userName")<<std::endl;
-    return 0;
-}
+//     std::cout<<generateSQL(obj,"userName")<<std::endl;
+//     return 0;
+// }
