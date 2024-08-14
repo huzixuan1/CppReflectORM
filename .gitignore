@@ -1,3 +1,5 @@
 boost/
 **/build/
 .vscode/
+**/out/
+tests/coverage.info
