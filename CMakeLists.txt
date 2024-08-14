@@ -3,11 +3,9 @@ project(dbORM)
 
 set(CMAKE_CXX_STANDARD 20)
 
-# include_directories(/home/huzixuan/workSpaces/CppReflectDB)
-include_directories(${CMAKE_SOURCE_DIR}/../CppReflectDB)
+# message(STATUS "CMAKE_SOURCE_DIR: ${CMAKE_SOURCE_DIR}")
+include_directories(${CMAKE_SOURCE_DIR})
 
-# add_executable(dbORM dbORM/createTable.cpp)
-# add_executable(dbORM dbORM/src/createTable.cpp)
 add_executable(dbORM dbORM/insertData.cpp)
 
 # target_link_libraries(dbORM PRIVATE ${CMAKE_DL_LIBS} -lmariadbclient)

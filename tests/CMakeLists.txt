@@ -11,15 +11,19 @@ if(CMAKE_COMPILER_IS_GNUCXX)
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --coverage")
 endif()
 
-include_directories(${CMAKE_SOURCE_DIR}/../dbORM/include)
+message(STATUS "CMAKE_SOURCE_DIR: ${CMAKE_SOURCE_DIR}")
+include_directories(${CMAKE_SOURCE_DIR}/../)
 include_directories(${CMAKE_SOURCE_DIR}/include)
+include_directories(${CMAKE_SOURCE_DIR}/../dbORM/include)
 
 find_package(GTest REQUIRED)
 include_directories(${GTEST_INCLUDE_DIRS})
 
 add_executable(ormTest 
+    src/executeUT.cpp
     src/tableBuilderTest.cpp
-    ../dbORM/src/createTable.cpp)
+    ../dbORM/src/createTable.cpp
+    )
 
 # target_link_libraries(dbORM GTest::GTest GTest::Main pthread)
 
