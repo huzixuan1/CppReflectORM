@@ -1,47 +1,48 @@
-#include "../include/tableBuilderTest.hpp"
+#include <string>
+#include "utility.hpp"
+#include "tableBuilderTest.hpp"
 
-void TableBuildTest::SetUp() {
-    // builder = std::make_shared<MySQLTableBuilder>();
-    // director = new TableDirector(builder);
+void TableBuildTest::SetUp()
+{
 
-    std::shared_ptr<TableBuilder> builder = std::make_shared<MySQLTableBuilder>();
-    TableDirector director(builder);
+    builder = std::make_shared<MySQLTableBuilder>();
+    director = std::make_unique<TableDirector>(builder);
 
-        fields = {
-        {"id", "INTEGER"},
-        {"name", "TEXT"},
-        {"salary", "REAL"}
-    };
-
-}
-
-void TableBuildTest::TearDown() {
-    // delete director;
-}
-
-TEST(SQLBuilderTest, ConstructsCorrectSQL) {
-
-    struct response
+    struct tableBuilderTest
     {
+        /* data */
         int id;
         std::string name;
         double salary;
+        float high;
     };
 
-    // std::shared_ptr<TableBuilder> builder = std::make_shared<MySQLTableBuilder>();
-    // TableDirector director(builder);
+    tableBuilderTest tableBuild;
+    fields = utility::getStructFieldsInfo(tableBuild);
+    
+}
 
-    // std::string sql = buildSQLTable("response", fields, "id");
+void TableBuildTest::TearDown()
+{
+    // delete director;
+}
 
-    director.construct("response", fields,"id");
+TableBuildTest::TableBuildTest() {}
+TableBuildTest::~TableBuildTest() {}
+
+TEST_F(TableBuildTest, ConstructsCorrectSQL)
+{
+    director->construct("response", fields, "id");
+    auto sql = builder->build();
+    // std::cout<<"sql:"<<sql<<std::endl;
     std::cout << builder->build() << std::endl;
-
-    std::string expected_sql = "CREATE TABLE response (id INTEGER, name TEXT, salary REAL, PRIMARY KEY (id));";
+    std::string expected_sql = "CREATE TABLE response (id INTEGER,name VARCHAR(255),salary REAL,high FLOAT,PRIMARY KEY (id));";
 
     EXPECT_EQ(sql, expected_sql);
 }
 
-int main(int argc, char **argv) {
+int main(int argc, char **argv)
+{
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 }
