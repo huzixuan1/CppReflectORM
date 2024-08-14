@@ -1,7 +1,9 @@
+#ifndef CONNECTIONS_DB_HPP
+#define CONNECTIONS_DB_HPP
 
-#include <iostream>
 #include <memory>
 #include <string>
+#include <iostream>
 
 using namespace std;
 
@@ -51,18 +53,20 @@ public:
     }
 };
 
-int main() {
-    std::shared_ptr<DatabaseConnection> mysqlConnection1 = ConnectionFactory::createConnection("Mysql");
-    mysqlConnection1->connect();
+// int main() {
+//     std::shared_ptr<DatabaseConnection> mysqlConnection1 = ConnectionFactory::createConnection("Mysql");
+//     mysqlConnection1->connect();
 
-    std::shared_ptr<DatabaseConnection> mysqlConnection2 = ConnectionFactory::createConnection("Mysql");
-    mysqlConnection2->connect();
+//     std::shared_ptr<DatabaseConnection> mysqlConnection2 = ConnectionFactory::createConnection("Mysql");
+//     mysqlConnection2->connect();
 
-    if (mysqlConnection1.get() == mysqlConnection2.get()) {
-        std::cout << "mysqlConnection1 and mysqlConnection2 are the same object." << std::endl;
-    } else {
-        std::cout << "mysqlConnection1 and mysqlConnection2 are different objects." << std::endl;
-    }
+//     if (mysqlConnection1.get() == mysqlConnection2.get()) {
+//         std::cout << "mysqlConnection1 and mysqlConnection2 are the same object." << std::endl;
+//     } else {
+//         std::cout << "mysqlConnection1 and mysqlConnection2 are different objects." << std::endl;
+//     }
    
-    return 0;
-}
+//     return 0;
+// }
+
+#endif // CONNECTIONS_DB_HPP
