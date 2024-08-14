@@ -1,3 +1,6 @@
+#ifndef INSERT_ACTION_HPP
+#define INSERT_ACTION_HPP
+
 #include <string>
 #include <vector>
 #include <iostream>
@@ -6,6 +9,8 @@
 #include <boost/core/type_name.hpp>
 
 using namespace std;
+
+namespace insertAction{
 
 template<typename T>
 std::string convertToString(const T& value)
@@ -34,7 +39,7 @@ std::vector<std::pair<std::string, std::string>> getStructFieldsInfo(const T& st
     return fieldsInfo;
 }
 
-// insert into tableName (id,weight,salary,userName) values (1,50,230,,tom);
+// insert into tableName (id,weight,salary,userName) values (1,50,230,tom);
 template<typename T>
 std::string generateSQL(const T& struct_t, std::string tableName) {
     std::vector<std::pair<std::string, std::string>> fields = getStructFieldsInfo(struct_t);
@@ -74,3 +79,8 @@ std::string generateSQL(const T& struct_t, std::string tableName) {
 //     std::cout<<generateSQL(obj,"userName")<<std::endl;
 //     return 0;
 // }
+
+
+};
+
+#endif  // INSERT_ACTION_HPP

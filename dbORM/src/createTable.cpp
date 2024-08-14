@@ -56,6 +56,7 @@ void TableDirector::construct(const std::string& tableName,
     }
 }
 
+/*
 struct response
 {
     int id;
@@ -89,3 +90,4 @@ int main()
 
     return 0;
 }
+*/
