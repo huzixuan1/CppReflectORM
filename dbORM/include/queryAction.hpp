@@ -1,0 +1,7 @@
+#ifndef QUERY_ACTION_HPP
+#define QUERY_ACTION_HPP
+
+
+
+
+#endif  // QUERY_ACTION_HPP

@@ -11,7 +11,7 @@ if(CMAKE_COMPILER_IS_GNUCXX)
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --coverage")
 endif()
 
-message(STATUS "CMAKE_SOURCE_DIR: ${CMAKE_SOURCE_DIR}")
+# message(STATUS "CMAKE_SOURCE_DIR: ${CMAKE_SOURCE_DIR}")
 include_directories(${CMAKE_SOURCE_DIR}/../)
 include_directories(${CMAKE_SOURCE_DIR}/include)
 include_directories(${CMAKE_SOURCE_DIR}/../dbORM/include)
