@@ -112,6 +112,12 @@ public:
     }
 };
 
+template<typename L,typename R>
+auto operator>(L left,R right){
+    return Expression<L,R,Greater>(left,right);
+}
+
+
 template <typename T>
 class Column
 {
@@ -128,7 +134,7 @@ template <typename... Columns>
 std::string select(Columns... cols)
 {
     std::string sql = "SELECT";
-    std::string columns = ((cols.to_string() + ', ') + ...);
+    std::string columns = ((cols.to_string() + ", ") + ...);
     columns.pop_back();
     columns.pop_back();
     sql += columns;
@@ -155,9 +161,9 @@ struct User {
 
 int main() {
     // 构造 SQL 语句
-    auto sql = select(Column<float>("name"), Column<float>("age")) +
-               where(Column<float>("age") > 18) +
-               order_by(Column<float>("name")) + ";";
+    auto sql = select(Column<int>("name"), Column<int>("age")) +
+               where(Column<int>("age") > 18) +
+               order_by(Column<int>("name")) + ";";
     
     // 输出 SQL 语句
     std::cout << sql << std::endl;
