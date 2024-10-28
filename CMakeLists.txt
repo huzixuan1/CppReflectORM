@@ -7,6 +7,6 @@ set(CMAKE_CXX_STANDARD 20)
 include_directories(${CMAKE_SOURCE_DIR})
 
 # add_executable(dbORM dbORM/insertData.cpp)
-add_executable(dbORM examples/createTabel.cpp)
+add_executable(dbORM examples/select.cpp)
 
 # target_link_libraries(dbORM PRIVATE ${CMAKE_DL_LIBS} -lmariadbclient)
