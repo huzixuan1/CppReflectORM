@@ -6,7 +6,9 @@ set(CMAKE_CXX_STANDARD 20)
 # message(STATUS "CMAKE_SOURCE_DIR: ${CMAKE_SOURCE_DIR}")
 include_directories(${CMAKE_SOURCE_DIR})
 
-# add_executable(dbORM dbORM/insertData.cpp)
-add_executable(dbORM examples/select.cpp)
+# test for dbORM
+# add_executable(dbORM dbORM/deleteData.cpp)   
+# test for include
+add_executable(dbORM examples/delete.cpp)     
 
 # target_link_libraries(dbORM PRIVATE ${CMAKE_DL_LIBS} -lmariadbclient)
