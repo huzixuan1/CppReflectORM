@@ -7,6 +7,7 @@
 #include <boost/pfr/core.hpp>
 #include <boost/pfr/core_name.hpp>
 #include <boost/core/type_name.hpp>
+#include <boost/type_index.hpp>
 namespace utility
 {
 

@@ -9,6 +9,6 @@ include_directories(${CMAKE_SOURCE_DIR})
 # test for dbORM
 # add_executable(dbORM dbORM/deleteData.cpp)   
 # test for include
-add_executable(dbORM examples/update.cpp)     
+add_executable(dbORM examples/createAction.cpp)     
 
 # target_link_libraries(dbORM PRIVATE ${CMAKE_DL_LIBS} -lmariadbclient)
