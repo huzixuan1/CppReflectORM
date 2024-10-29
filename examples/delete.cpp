@@ -11,6 +11,9 @@ struct UserInformations
 int main()
 {
 
+    // DELETE FROM UserInformations WHERE id = 200;
+    // DELETE FROM UserInformations WHERE age != '2564';
+    
     auto table_name = get_table_name<UserInformations>();
     std::cout<<table_name<<std::endl;
 

@@ -10,14 +10,11 @@ struct User
 
 int main()
 {
+    User user;
+    Condition condition("age",">","25");
+    auto sql = create(user,condition,"age","name"); // SELECT age, name FROM User WHERE age > '25';
 
-    auto sql = select("users", Column<std::string>("name"), Column<int>("age")) +
-               where(Column<int>("age") > 18) +
-               order_by(Column<std::string>("name")) + ";";
-    
-    // 输出 SQL 语句
-    std::cout << sql << std::endl;
-
+    std::cout<<sql<<std::endl;
 
     return 0;
 }

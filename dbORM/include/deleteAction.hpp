@@ -38,7 +38,7 @@ namespace deleteAction
     std::string remove(int id)
     {
         std::ostringstream sql;
-        sql<<"DELETE FROM "<<get_table_name<T>()<<" WHERE id = "<<id;
+        sql<<"DELETE FROM "<<get_table_name<T>()<<" WHERE id = "<<id<<";";
         return sql.str();
     }
 
@@ -47,7 +47,7 @@ namespace deleteAction
     std::string remove_if(const Condition& condition)
     {
         std::ostringstream sql;
-        sql<<"DELETE FROM "<<get_table_name<T>()<<" WHERE "<<condition.to_sql();
+        sql<<"DELETE FROM "<<get_table_name<T>()<<" WHERE "<<condition.to_sql()<<";";
         return sql.str();
     }
 

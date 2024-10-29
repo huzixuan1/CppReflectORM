@@ -1,91 +1,57 @@
 #ifndef QUERY_ACTION_HPP
 #define QUERY_ACTION_HPP
 
-#include <string>
-#include <iostream>
-#include <functional>
+#include <sstream>
+#include "utility.hpp"
 namespace selectAction
 {
-    template <typename L, typename R, typename Op>
-    struct Expression
+    class Condition
     {
-        L left;
-        R right;
+    private:
+        std::string L;
+        std::string op;
+        std::string R;
 
-        Expression(L l, R r) : left(l), right(r) {}
+    public:
+        Condition(const std::string &L, const std::string &op, const std::string &R)
+            : L(L), op(op), R(R) {}
 
-        std::string to_string() const
+        std::string to_sql() const
         {
-            return left.to_string() + " " + Op::to_string() + " " + std::to_string(right);
+            std::stringstream sql;
+            sql << L << " " << op << " '" << R << "'";
+            return sql.str();
         }
     };
-    struct Greater
-    {
-        static std::string to_string()
-        {
-            return ">";
-        }
-    };
 
-    template <typename L, typename R>
-    auto operator>(L left, R right)
-    {
-        return Expression<L, R, Greater>(left, right);
-    }
     template <typename T>
-    struct Column
+    std::string get_table_name()
     {
-        std::string name;
+        return boost::typeindex::type_id<T>().pretty_name();
+    }
 
-        Column(const std::string &name) : name(name) {}
+    // select age,name from tableName where age > 25;
+    template <typename T, typename... Args>
+    std::string create(const T &struct_,Condition &condition, Args... args)
+    {
+        std::ostringstream sql;
+        sql << "SELECT ";
 
-        std::string to_string() const
+        auto arg_list = {args...};
+        auto it = arg_list.begin();
+        for (; it != arg_list.end(); ++it)
         {
-            return name;
+            sql << *it;
+            if (std::next(it) != arg_list.end())
+            {
+                sql << ", ";
+            }
         }
-    };
 
-    template <typename... Columns>
-    std::string select(const std::string &table, Columns... cols)
-    {
-        std::string sql = "SELECT ";
-        std::string columns = ((cols.to_string() + ", ") + ...);
-        columns.pop_back();
-        columns.pop_back();                // remove last comma and space
-        sql += columns + " FROM " + table; // add from table
-        return sql;
+        sql << " FROM " << utility::get_table_name<T>() << " WHERE " << condition.to_sql()<<";";
+
+        return sql.str();
     }
-
-    template <typename WhereExp>
-    std::string where(WhereExp exp)
-    {
-        return " WHERE " + exp.to_string();
-    }
-
-    // order_by 函数
-    template <typename OrderByExp>
-    std::string order_by(OrderByExp exp)
-    {
-        return " ORDER BY " + exp.to_string();
-    }
-
-
-// test
-// struct User {
-//     int age;
-//     std::string name;
-// };
-
-// int main() {
-
-//     auto sql = select("users", Column<std::string>("name"), Column<int>("age")) +
-//                where(Column<int>("age") > 18) +
-//                order_by(Column<std::string>("name")) + ";";
-//     std::cout << sql << std::endl;
-
-//     return 0;
-// }
-
 
 };
 

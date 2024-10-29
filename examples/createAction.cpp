@@ -13,6 +13,7 @@ struct StudentInfo
 
 int main()
 {
+    // CREATE TABLE StudentInfo (id INTEGER, name VARCHAR(255), age INTEGER);
     StudentInfo instance;
     auto sql = createTable(instance);
     std::cout<<sql<<std::endl;
