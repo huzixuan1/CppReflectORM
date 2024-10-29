@@ -9,12 +9,12 @@ namespace createAction
 {
 
 
-    // 1.create tableName (student_id INT,name VARCHAR(50),age INT);
+    // 1.create table tableName (student_id INT,name VARCHAR(50),age INT);
     template<typename T>
     std::string createTable(const T& struct_)
     {
         std::ostringstream sql;
-        sql<<"CREATE "<<utility::get_table_name<T>()<< " (";
+        sql<<"CREATE TABLE "<<utility::get_table_name<T>()<< " (";
         std::vector<std::pair<std::string,std::string>> fieldInfo = utility::getStructFieldsInfo(struct_);
         for(size_t i = 0;i<fieldInfo.size();i++)
         {

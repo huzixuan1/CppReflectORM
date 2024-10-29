@@ -1,3 +1,4 @@
+/*
 #ifndef TABLE_BUILDER_HPP
 #define TABLE_BUILDER_HPP
 
@@ -112,3 +113,4 @@ void TableDirector::construct(const std::string& tableName,
 
 
 #endif  // TABLE_BUILDER_HPP
+*/
