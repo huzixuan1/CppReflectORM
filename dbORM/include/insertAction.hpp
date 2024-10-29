@@ -1,86 +1,66 @@
 #ifndef INSERT_ACTION_HPP
 #define INSERT_ACTION_HPP
 
-#include <string>
+#include "utility.hpp"
+#include <sstream>
 #include <vector>
-#include <iostream>
-#include <boost/pfr/core.hpp>
-#include <boost/pfr/core_name.hpp>
-#include <boost/core/type_name.hpp>
-
-using namespace std;
-
-namespace insertAction{
-
-template<typename T>
-std::string convertToString(const T& value)
+#include <string>
+namespace insertAction
 {
-    return std::to_string(value);
-}
 
-template<>
-std::string convertToString(const std::string& value)
-{
-    return value;
-}
+    // insert into tableName (id,weight,salary,userName) values (1,50,230,tom);
+    template<typename T,typename...Args>
+    std::string insert(const T& struct_,Args...args)
+    {
 
-template<typename T>
-std::vector<std::pair<std::string, std::string>> getStructFieldsInfo(const T& struct_t) {
-    std::vector<std::pair<std::string, std::string>> fieldsInfo;
+        std::ostringstream sql;
+        sql<<"INSERT INTO "<<utility::get_table_name<T>()<<"(";
+        std::vector<std::pair<std::string,std::string>> fieldInfo = utility::getStructFieldsInfo(struct_);
 
-    constexpr auto names = boost::pfr::names_as_array<T>();
-    boost::pfr::for_each_field(
-        struct_t, [&fieldsInfo, &names](const auto& field, std::size_t idx) {
-            std::string value = convertToString(field);
-            std::string fieldName = std::string(names[idx]);
-            fieldsInfo.emplace_back(fieldName, value);
-        });
+        for(size_t i = 0;i<fieldInfo.size();++i)
+        {
+            sql<<fieldInfo[i].first;
+            if(i<fieldInfo.size()-1)
+            {
+                sql<<", ";
+            }
+        }   // for
 
-    return fieldsInfo;
-}
+        sql <<") VALUES (";
 
-// insert into tableName (id,weight,salary,userName) values (1,50,230,tom);
-template<typename T>
-std::string generateSQL(const T& struct_t, std::string tableName) {
-    std::vector<std::pair<std::string, std::string>> fields = getStructFieldsInfo(struct_t);
-    std::string sql = "insert into " + tableName + " (";
-    std::string values = "values (";
+        // auto arg_list = {args...};
+        // auto it = arg_list.begin();
+        // for(size_t i = 0;i<fieldInfo.size();++i)
+        // {
+        //     sql<<"'"<<*it<<"'";
+        //     ++it;
+        //     if(i<fieldInfo.size()-1)
+        //     {
+        //         sql<<", ";
+        //     }
+        // }   // for
 
-    for (const auto& field : fields) {
-        sql += field.first + ",";
-        values += "'" + field.second + "',";
+         std::vector<std::string> arg_list = {args...};
+         for(size_t i = 0;i<arg_list.size();++i)
+         {
+            sql<<"'"<<arg_list[i]<<"'";
+            if(i<arg_list.size()-1)
+            {
+                sql<<", ";
+            }   // if
+         }  // for
+
+        sql<<");";
+
+        return sql.str();
+
     }
 
-    sql.pop_back();     // delete the last ,
-    values.pop_back();
 
-    sql += ") " + values + ");";
-
-    return sql;
-}
-
-
-// struct insertData
-// {
-//     /* data */
-//     int id;
-//     float weight;
-//     double salary;
-//     std::string userName;
-// };
-
-
-// // insert into userName (id,weight,salary,userName) values ('1','50.000000','2300.000000','tom');
-
-// int main()
-// {
-//     insertData obj{1,49,230,"tom"};
-
-//     std::cout<<generateSQL(obj,"userName")<<std::endl;
-//     return 0;
-// }
 
 
 };
+
+
 
 #endif  // INSERT_ACTION_HPP
