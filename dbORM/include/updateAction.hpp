@@ -29,36 +29,65 @@ namespace updateAction
         }
     };
 
-    template <typename T>
-    std::string get_table_name()
-    {
-        return boost::typeindex::type_id<T>().pretty_name();
-    }
+    // template <typename T>
+    // std::string get_table_name()
+    // {
+    //     return boost::typeindex::type_id<T>().pretty_name();
+    // }
 
-    // UPDATE table_name SET column1 = value1, column2 = value2 WHERE condition;
-    template <typename T, typename... Args>
-    std::string update(const T &struct_,const Condition &condition,Args... args)
+    // UPDATE UserInfo SET age = '32', name = 'TaoTao' WHERE name = 'Bob';
+    // template <typename T, typename... Args>
+    // std::string update(const T &struct_,const Condition &condition,Args... args)
+    // {
+    //     std::ostringstream sql;
+    //     sql << "UPDATE " << get_table_name<T>() << " SET ";
+    //     std::vector<std::pair<std::string, std::string>> fieldInfo = utility::getStructFieldsInfo(struct_);
+
+    //     std::string set_clause;
+    //     auto arg_list = {args...};
+    //     auto it_arg = arg_list.begin();
+    //     for (const auto &filed : fieldInfo)
+    //     {
+    //         set_clause += filed.first + " = '" + *it_arg + "'";
+    //         ++it_arg;
+    //         if (it_arg != arg_list.end())
+    //         {
+    //             set_clause += ", ";
+
+    //         } // if
+    //     }
+
+    //     sql << set_clause << " WHERE " << condition.to_sql()<<";";
+
+    //     return sql.str();
+    // }
+
+    // UPDATE UserInfo SET age = '32', name = 'TaoTao' WHERE name = 'Bob';
+    template <typename T>
+    std::string update(const T &struct_, const std::string &condition)
     {
         std::ostringstream sql;
-        sql << "UPDATE " << get_table_name<T>() << " SET ";
+        sql << "UPDATE " << utility::get_table_name<T>() << " SET ";
+
         std::vector<std::pair<std::string, std::string>> fieldInfo = utility::getStructFieldsInfo(struct_);
 
-        std::string set_clause;
-        auto arg_list = {args...};
-        auto it_arg = arg_list.begin();
-        for (const auto &filed : fieldInfo)
-        {
-            set_clause += filed.first + " = '" + *it_arg + "'";
-            ++it_arg;
-            if (it_arg != arg_list.end())
-            {
-                set_clause += ", ";
+        size_t index = 0;
+        boost::pfr::for_each_field(struct_, [&sql, &index, &fieldInfo](const auto &field)
+                                   {
+        sql << fieldInfo[index].first << " = ";
 
-            } // if
+        using FieldType = std::decay_t<decltype(field)>;
+        if constexpr (std::is_same_v<FieldType, std::string>) {
+            sql << "'" << field << "'";
+        } else {
+            sql << field;
         }
 
-        sql << set_clause << " WHERE " << condition.to_sql()<<";";
+        if (++index < fieldInfo.size()) {
+            sql << ", ";
+        } });
 
+        sql << " WHERE " << condition << ";";
         return sql.str();
     }
 
