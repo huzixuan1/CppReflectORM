@@ -35,7 +35,7 @@ namespace deleteAction
     }
 
     template<typename T>
-    std::string remove(int id)
+    std::string remove(const T &struct_,int id)
     {
         std::ostringstream sql;
         sql<<"DELETE FROM "<<get_table_name<T>()<<" WHERE id = "<<id<<";";
@@ -44,7 +44,7 @@ namespace deleteAction
 
 
     template<typename T>
-    std::string remove_if(const Condition& condition)
+    std::string remove_if(const T &struct_,const Condition& condition)
     {
         std::ostringstream sql;
         sql<<"DELETE FROM "<<get_table_name<T>()<<" WHERE "<<condition.to_sql()<<";";

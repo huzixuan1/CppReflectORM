@@ -14,15 +14,23 @@ int main()
     // DELETE FROM UserInformations WHERE id = 200;
     // DELETE FROM UserInformations WHERE age != '2564';
     
-    auto table_name = get_table_name<UserInformations>();
-    std::cout<<table_name<<std::endl;
+    // auto table_name = get_table_name<UserInformations>();
+    // std::cout<<table_name<<std::endl;
 
-    auto sql = remove<UserInformations>(200);
-    std::cout<<sql<<std::endl;
+    // auto sql = remove<UserInformations>(200);
+    // std::cout<<sql<<std::endl;
 
-    Condition condition("age","!=","2564");
-    auto condition_sql = remove_if<UserInformations>(condition);
-    std::cout<<condition_sql<<std::endl;
+    // Condition condition("age","!=","2564");
+    // auto condition_sql = remove_if<UserInformations>(condition);
+    // std::cout<<condition_sql<<std::endl;
+
+    UserInformations info;
+    std::cout<<remove(info,200)<<std::endl;
+
+    Condition condition("age","<=","240");
+    std::cout<<remove_if(info,condition)<<std::endl;;
+
+
 
 
     return 0;
