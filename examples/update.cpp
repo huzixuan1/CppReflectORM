@@ -27,8 +27,9 @@ int main()
     // std::cout << updateSql2 << std::endl; 
 
     UserInfo user = {32, "TaoTao", "30"};
-    std::string condition = "name = 'Bob'";  // 你可以根据需要修改条件
-    auto sql = update(user, condition);  // 自动生成UPDATE语句
+    // std::string condition = "name = 'Bob'"; 
+    Condition condition("name","=","tom");
+    auto sql = update(user, condition);  
     std::cout << sql << std::endl;
 
     return 0;

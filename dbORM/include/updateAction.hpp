@@ -64,7 +64,7 @@ namespace updateAction
 
     // UPDATE UserInfo SET age = '32', name = 'TaoTao' WHERE name = 'Bob';
     template <typename T>
-    std::string update(const T &struct_, const std::string &condition)
+    std::string update(const T &struct_, const Condition& condition)
     {
         std::ostringstream sql;
         sql << "UPDATE " << utility::get_table_name<T>() << " SET ";
@@ -87,7 +87,7 @@ namespace updateAction
             sql << ", ";
         } });
 
-        sql << " WHERE " << condition << ";";
+        sql << " WHERE " << condition.to_sql() << ";";
         return sql.str();
     }
 
