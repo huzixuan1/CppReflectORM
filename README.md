@@ -1,15 +1,53 @@
 # CppReflectORM
-CppReflectORM is a lightweight ORM (Object-Relational Mapping) framework based on CPP
 
-1.after clone this repo,you should to unzip boost.zip
+CppReflectORM is a lightweight ORM (Object-Relational Mapping) framework based on C++.
 
-2.install connector/c++
+## Setup Instructions
 
+### 1. Unzip Boost Library
+
+After cloning this repository, you should unzip the `boost.zip` file included in the project.
+
+**Recommended Boost Version**:  
+We suggest using **Boost 1.84** for compatibility and stability with this project.
+
+### 2. Install MySQL Connector/C++
+
+To install MySQL Connector/C++ on your system, use the following commands:
+
+For **Ubuntu/Debian-based** systems:
+```bash
 sudo apt update
-
 sudo apt install libmysqlcppconn-dev
+```
 
-## using
+### 3. Build the Project
+After setting up the dependencies, follow these steps to compile the project:
+
+Navigate to the project directory:
+```bash
+cd CppReflectORM
+```
+
+Create a build directory:
+```
+mkdir build && cd build
+```
+
+Run CMake to configure the project:
+```bash
+cmake ..
+```
+
+Build the project using make:
+```bash
+make
+```
+
+
+## Usage
+To use the CppReflectORM framework, follow these steps:
+
 ### create table
 ```c
 #include "../dbORM/include/createAction.hpp"
@@ -172,4 +210,29 @@ int main()
     return 0;
 }
 ```
+
+
+## Author Information
+
+**Author**: TaoTao
+
+**Email**: 1017190168@qq.com  
+
+## License and Responsibility Statement
+
+### License
+
+This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for more details.
+
+### Responsibility Statement
+
+This project is provided as-is, without any warranty of any kind, either express or implied. By using this project, you agree to do so at your own risk. The developer(s) of this project are not responsible for any damage, loss, or negative consequences that may arise from using this project.
+
+### Open Source and Contributions
+
+This project is open-source and encourages collaboration. Developers and users are encouraged to contribute to the improvement of this project. If you find any issues or have suggestions for new features, feel free to open an issue or submit a pull request.
+
+Please follow the general guidelines for contributing to the project and ensure that you adhere to the coding standards and practices used in this repository.
+
+Together, we can make this project even better!
 
