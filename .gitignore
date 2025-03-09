@@ -3,3 +3,6 @@ boost/
 .vscode/
 **/out/
 tests/coverage.info
+.idea
+cmake-build-debug
+.DS_Store
